@@ -9,20 +9,50 @@ class Calendar extends Component {
   }
 
   daysInMonth() {
-    return new Date(this.props.year, this.props.month, 0).getDate();
+    return new Date(this.props.year, this.props.month+1, 0).getDate();
   }
 
   buildCalendar() {
     let ul = document.getElementById("days");
-    //empty previous list
-    for (var i = 1; i <= this.daysInMonth(); i++){
+    let offset = new Date(this.props.year, this.props.month, 1).toLocaleDateString('en-EN', { weekday: 'short'});
+    switch(offset){
+      case "Mon": 
+        offset = 0;
+        break;
+      case "Tue":
+        offset = 1;
+        break;
+      case "Wed":
+        offset = 2;
+        break;
+      case "Thu":
+        offset = 3;
+        break;
+      case "Fri":
+        offset = 4;
+        break;
+      case "Sat":
+        offset = 5;
+        break;
+      case "Sun":
+        offset = 6;
+        break;
+    }
+    for (let j=0; j<offset; j++){
+      let li = document.createElement("li");
+      let textnode = document.createTextNode("");
+      li.appendChild(textnode);
+      ul.appendChild(li);
+    }
+    for (let i = 1; i <= this.daysInMonth(); i++){
+      console.log("i: "+i);
         let li = document.createElement("li");
         let date = new Date(this.props.year, this.props.month, i);
         let dStr = date.toLocaleDateString('en-EN', { weekday: 'long'});
-        if(dStr == "Saturday" || dStr == "Sunday"){
+        if(dStr === "Saturday" || dStr === "Sunday"){
           li.className = "weekend";
         }
-        if(date.getDate()==new Date().getDate()){
+        if(date.getDate()===new Date().getDate()){
           li.className = "active";
         }
         let getdate = date.getDate();
@@ -38,7 +68,9 @@ class Calendar extends Component {
 
   componentDidUpdate(prevProps, prevState){
     if(this.props.day!==prevProps.day||this.props.month!==prevProps.month||this.props.year!==prevProps.year){
-
+      var myNode = document.getElementById("days");
+      myNode.innerHTML = '';
+      this.buildCalendar();
     }
   }
 
