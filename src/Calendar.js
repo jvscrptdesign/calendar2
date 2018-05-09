@@ -12,7 +12,7 @@ class Calendar extends Component {
     return new Date(this.props.year, this.props.month+1, 0).getDate();
   }
 
-  buildCalendar() {
+    buildCalendar() {
     let ul = document.getElementById("days");
     let offset = new Date(this.props.year, this.props.month, 1).toLocaleDateString('en-EN', { weekday: 'short'});
     switch(offset){
@@ -52,7 +52,8 @@ class Calendar extends Component {
         if(dStr === "Saturday" || dStr === "Sunday"){
           li.className = "weekend";
         }
-        if(date.getDate()===new Date().getDate()){
+        let isSameDate = date.getDate()===new Date().getDate() && date.getMonth()===new Date().getMonth() && date.getFullYear()===new Date().getFullYear();        
+        if(isSameDate){
           li.className = "active";
         }
         let getdate = date.getDate();
