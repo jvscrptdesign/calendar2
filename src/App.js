@@ -6,8 +6,8 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      day: 1,
-      month: 0,
+      day: 9,
+      month: 4,
       year: 2018,
       monthNames: ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
@@ -68,6 +68,8 @@ class App extends Component {
           month={this.state.month}
           year={this.state.year}
         />
+
+        {this.state.day}; {this.state.month}; {this.state.year}; {this.state.monthNames[this.state.month]}
         </div>
     );
   }
